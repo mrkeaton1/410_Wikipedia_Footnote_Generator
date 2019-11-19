@@ -1,4 +1,4 @@
-#import wiki module here
+import wikipedia
 
 def note_generator(word_dictionary):
     '''This function will take a unique word dictionary and return
@@ -18,10 +18,11 @@ def note_generator(word_dictionary):
 
 def wiki_lookup(word):
     #do your magic wiki stuff here, puttin the first sentence in sent
-    sent = "Definition would be here"
+    sent = wikipedia.summary(word, sentences = 1)
     
     #put the page link in link. If can't find page, maybe using a search
     #like this below would be a good default? Perhaps search wiki.
-    link = "https://duckduckgo.com/?q={}&t=canonical&ia=web".format(word)
+    link = wikipedia.page(word).url
+#    link = "https://duckduckgo.com/?q={}&t=canonical&ia=web".format(word)
     
     return sent, link
