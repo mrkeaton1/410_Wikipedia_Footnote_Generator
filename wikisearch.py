@@ -17,12 +17,14 @@ def note_generator(word_dictionary):
     return note_list
 
 def wiki_lookup(word):
-    #do your magic wiki stuff here, puttin the first sentence in sent
-    sent = wikipedia.summary(word, sentences = 1)
-    
-    #put the page link in link. If can't find page, maybe using a search
-    #like this below would be a good default? Perhaps search wiki.
-    link = wikipedia.page(word).url
-#    link = "https://duckduckgo.com/?q={}&t=canonical&ia=web".format(word)
+    try:
+        sent = wikipedia.summary(word, sentences = 1)
+        link = wikipedia.page(word).url
+    except wikipedia.exceptions.DisambiguationError:
+        sent = 'Page not found in Wikipedia. Try the following link for more information:'
+        link = "https://duckduckgo.com/?q={}&t=canonical&ia=web".format(word)
+    except wikipedia.exceptions.PageError:
+        sent = 'Page not found in Wikipedia. Try the following link for more information:'
+        link = "https://duckduckgo.com/?q={}&t=canonical&ia=web".format(word)
     
     return sent, link

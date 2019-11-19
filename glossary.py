@@ -66,7 +66,7 @@ else:
     with open(args.infile, 'r', encoding="utf-8") as input_file:
         input_txt = input_file.read()
         input_txt = unicode_normalize(input_txt)
-        parsed_txt = parse_tokens(input_txt)
+        parsed_txt = parse_tokens(str(input_txt))
 
 with open("testfile.txt", 'w') as test:
     for string in parsed_txt:
