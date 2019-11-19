@@ -7,4 +7,6 @@ In order to run this program, you call it at the commandline with four arguments
 ### Example
 python3 glossary.py --infile="http://www.gutenberg.org/cache/epub/9845/pg9845.txt" --outfile="gutenout.pdf" --title="Gutenberg Text" --common="106k-combine.txt"
 
+python3 glossary.py --infile="https://www.gutenberg.org/ebooks/60718.txt.utf-8" --outfile="animals.pdf" --title="Living Animals of the World" --common="106k-combine.txt"
+
 

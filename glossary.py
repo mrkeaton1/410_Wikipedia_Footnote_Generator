@@ -63,8 +63,9 @@ if re.match("^https?://", args.infile):
     r = requests.get(args.infile, allow_redirects=True)
     parsed_txt = parse_tokens(r.text)
 else:
-    with open(args.infile, 'r') as input_file:
+    with open(args.infile, 'r', encoding="utf-8") as input_file:
         input_txt = input_file.read()
+        input_txt = unicode_normalize(input_txt)
         parsed_txt = parse_tokens(input_txt)
 
 with open("testfile.txt", 'w') as test:
@@ -74,8 +75,11 @@ with open("testfile.txt", 'w') as test:
 common_words = []
     ### use a local list of common words, or the nltk stopwords ###
 if args.common:
-    with open(args.common, 'r') as common:
-        common_words = [line.rstrip('\n') for line in common]
+    with open(args.common, 'r', encoding="utf-8") as common:
+        input_txt = common.read()
+        input_txt = unicode_normalize(input_txt)
+        input_txt = re.split('\n',input_txt.decode('ASCII'))
+        common_words = [line.rstrip('\n') for line in input_txt]
         common_words.append(["\n","thee","thy","ye","thine","thou"])
 else:
     #get stopwords + extra for the era of the book at the url
