@@ -5,7 +5,7 @@ def note_generator(word_dictionary):
     a list of tuples of the form ('word','first sentence','hyperlink').
     '''
     note_list = []
-    for word in word_dictionary.keys():
+    for word, index in word_dictionary.items():
         
         #look up and get first sentence and a hyperlink. Make a note.
         sent, link = wiki_lookup(word)

@@ -1,4 +1,5 @@
 from fpdf import FPDF, HTMLMixin
+import unicodedata
 
 class PDF(FPDF, HTMLMixin):
     def __init__(self):
@@ -7,6 +8,8 @@ class PDF(FPDF, HTMLMixin):
         self.add_font('DejaVu', '', 'DejaVuSerif.ttf', uni=True)
         self.add_font('DejaVu', 'B', 'DejaVuSerif-Bold.ttf', uni=True)
         self.add_font('DejaVu', 'I', 'DejaVuSerif-Italic.ttf', uni=True)
+        self.set_font('DejaVu', '', 15)
+        
     def header(self):
         # Arial bold 15
         self.set_font('DejaVu', 'B', 15)
@@ -30,7 +33,7 @@ class PDF(FPDF, HTMLMixin):
         # Text color in gray
         self.set_text_color(128)
         # Page number
-        self.cell(0, 10, 'Page ' + str(self.page_no()), 0, 0, 'C')
+        self.cell(0, 10,'Page ' + str(self.page_no()), 0, 0, 'C')
 
     def text_body(self, all_words, key_words):
         link_list = []
@@ -39,11 +42,12 @@ class PDF(FPDF, HTMLMixin):
         
         # Output text, bolding the keywords, and creating a link.
         for value, word in enumerate(all_words):
+            
             #manually reseting the abscissa .. dirty I know
-            if self.get_x() + self.get_string_width(word) > 200:
+            if self.get_x() + self.get_string_width(str(word)) > 200:
                 self.ln()
                 
-            if value in key_words.values():
+            if key_words[word] == value:   #if exists, and is first occurance
                 self.set_font('DejaVu','B', 12)
                 
                 #create the link...
@@ -51,16 +55,16 @@ class PDF(FPDF, HTMLMixin):
                 
                 #add a link here. Will be set later.
                 link_list.append(link)
-                w = self.get_string_width(word)
-                self.cell(w,5,word,ln=0,link=link)
+                w = self.get_string_width(str(word))
+                self.cell(w,5,str(word),ln=0,link=link)
             else:
                 #nothing special here.
                 self.set_font('')
-                w = self.get_string_width(word)
-                if word == '\n':
+                w = self.get_string_width(str(word))
+                if str(word) == "\n":
                     self.ln()
                 else:
-                    self.cell(w,5,word,ln=0)
+                    self.cell(w,5,str(word),ln=0)
         
         # Line break
         self.ln()
@@ -79,15 +83,15 @@ class PDF(FPDF, HTMLMixin):
             
             #set the keyword link from the text to this entry.
             self.set_link(links[idx],y=-1,page=-1)
-            
             #print the entry word.
             self.ln()
+            self.ln()
             self.set_font('DejaVu','I',12)
-            self.cell(0,5,word,ln=1)
+            self.cell(0,5,str(word),ln=1)
             
             #print the first sentence entry of the word.
             self.set_font('')
-            self.cell(0,5,sentence, ln=1)
+            self.cell(0,5,str(sentence), ln=1)
             
             #print the hyperlink to the wikipedia page.
             self.set_font('DejaVu','U',12)
