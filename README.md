@@ -9,4 +9,4 @@ python3 glossary.py --infile="http://www.gutenberg.org/cache/epub/9845/pg9845.tx
 
 python3 glossary.py --infile="https://www.gutenberg.org/ebooks/60718.txt.utf-8" --outfile="animals.pdf" --title="Living Animals of the World" --common="106k-combine.txt"
 
-
+python glossary.py --infile="coal.txt" --outfile="MK_Test.pdf" --title="MK_Test" --common="106k-combine.txt"
