@@ -91,7 +91,7 @@ class PDF(FPDF, HTMLMixin):
             
             #print the first sentence entry of the word.
             self.set_font('')
-            self.cell(0,5,str(sentence), ln=1)
+            self.multi_cell(0,5,str(sentence), align='L')
             
             #print the hyperlink to the wikipedia page.
             self.set_font('DejaVu','U',12)
