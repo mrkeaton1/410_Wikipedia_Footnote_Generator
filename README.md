@@ -11,7 +11,7 @@ python3 glossary.py --infile="https://www.gutenberg.org/ebooks/60718.txt.utf-8" 
 
 python3 glossary.py --infile="coal.txt" --outfile="coalout.pdf" --title="Coal" --common="106k-combine.txt"
 
-#### Required software/packages
+### Required software/packages
 Make sure this is run on a Linux machine.
 Python 3 and the standard libraries must be downloaded, as well as the following packages:
 - nltk
